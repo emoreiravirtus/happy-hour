@@ -7,13 +7,11 @@
 
 <script>
 import Navbar from '@/components/Navbar'
-import Footerbar from '@/components/Footerbar'
 
 export default {
   name: 'App',
   components:{
-    Navbar,
-    Footerbar
+    Navbar
   },
   computed:{
     user(){
