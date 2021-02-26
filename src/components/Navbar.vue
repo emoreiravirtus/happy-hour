@@ -3,18 +3,18 @@
     <nav>
       <div class="nav-wrapper blue">
         <router-link to="/">
-          <a href="" class="brand-logo">
+          <a href="" class="brand-logo hide-on-med-and-down">
             <div class="row">
-              <div class="col s4">
+              <div class="col m4">
                 <img src="https://img.icons8.com/cotton/64/000000/apple-watch-apps.png"/>
               </div>
-              <div class="col s8">
+              <div class="col m8">
                 <span>Happy Hour</span>
               </div>
             </div>
           </a>
         </router-link>
-        <ul class="right hide-on-med-and-down">
+        <ul class="right">
           <li class="user-name" v-if="userData">
               Welcome, {{ userData.name.split(' ').slice(0, -1)[0] }}
           </li>

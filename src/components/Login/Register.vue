@@ -1,15 +1,7 @@
 <template>
   <div class="register container">
     <div class="row">
-      <div class="col s6 info-container">
-        <img src="@/assets/register-couple.svg" alt="Kiwi standing on oval" />
-        <div class="text-box blue blue-text upper-text">
-          <h4 class="text-box-title">Focus on what matters</h4>
-          <h4 class="text-box-title-2">Live better</h4>
-        </div>
-      </div>
-
-      <div class="col s6">
+      <div class="col s12 m6">
         <form @submit.prevent="Register">
           <div class="row">
             <div class="col s12">
@@ -46,6 +38,13 @@
             <button class="btn blue">Send</button>
           </div>
         </form>
+      </div>
+      <div class="col s12 m6 info-container">
+        <img src="@/assets/register-couple.svg" alt="Kiwi standing on oval" />
+        <div class="text-box blue blue-text upper-text">
+          <h4 class="text-box-title">Focus on what matters</h4>
+          <h4 class="text-box-title-2">Live better</h4>
+        </div>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="login container">
     <div class="row">
-      <div class="col s6">
+      <div class="col s12 m6">
         <form @submit.prevent="Login">
           <div class="row">
             <div class="col s2">
@@ -34,7 +34,7 @@
           </div>
         </form>
       </div>
-      <div class="col s6 info-container">
+      <div class="col s12 m6 mb-2 info-container">
         <img src="@/assets/login-girl.svg" alt="Kiwi standing on oval" />
         <div class="text-box blue blue-text upper-text">
           <h4 class="text-box-title">Time is ours</h4>
