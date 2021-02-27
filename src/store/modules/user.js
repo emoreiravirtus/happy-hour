@@ -80,6 +80,39 @@ const actions = {
         return err
       })
   },
+
+  /**
+   * @signInWithGoogle : Sign the user using Google Authentication.
+   */
+  async signInWithGoogle(){
+    const db = firebase.firestore()
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+      firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(cred => {
+          let name = cred.additionalUserInfo.profile.name
+          let email = cred.additionalUserInfo.profile.email
+
+          db.collection('users').doc(cred.user.uid).get()
+          .then(doc => {
+            if(!doc.exists) {
+              db.collection('users').doc(cred.user.uid).set({
+                name: name,
+                email: email,
+                company: 'Google',
+                notifications: [],
+                expected_hours_per_day: 28800
+              })
+            }
+          })
+        })
+        .catch((err) => {
+          console.log(err);
+    });
+  },
+  
   /**
    * @logout : Logs the user out
    */
