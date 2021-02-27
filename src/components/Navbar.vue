@@ -17,7 +17,7 @@
         </router-link>
         <!-- Right Nav - Welcome user, pages and logout -->
         <ul class="right">
-          <li class="user-name" v-if="userData">
+          <li class="user-name hide-on-med-and-down" v-if="userData">
               Welcome, {{ userData.name.split(' ').slice(0, -1)[0] }}
           </li>
           <li v-if="!user">
