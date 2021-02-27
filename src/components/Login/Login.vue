@@ -31,6 +31,9 @@
           <div class="field center">
             <button class="btn blue darken-1">Enter</button>
           </div>
+          <div class="row center">
+            <google-login></google-login>
+          </div>
           <div class="row" style="text-align: center">
             <span>Don't have an account?</span>
             <router-link to="/register"><a class="secondary-btn blue-text">Create an account</a></router-link>
@@ -81,8 +84,13 @@
 </template>
 
 <script>
+import GoogleLogin from "@/components/GoogleLogin";
+
 export default {
   name: "Login",
+  components: {
+    GoogleLogin,
+  },
   data() {
     return {
       email: null,
