@@ -48,7 +48,7 @@ export default {
       var current_month = d.getMonth() + 1;
 
       this.days_worked.forEach(day => {
-        if(day.date.slice(0, 2) == current_month){
+        if(day.date.slice(0, 2).replace('-', ''), current_month.toString()){
           totalSeconds += day.workedSeconds
         }
       })
