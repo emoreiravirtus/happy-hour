@@ -6,7 +6,7 @@
     <navbar v-if="user"></navbar>
 
     <!-- Navbar User Name (For Mobile only) -->
-    <div class="navbar-mobile-helper container hide-on-large-only">
+    <div v-if="user" class="navbar-mobile-helper container hide-on-large-only">
         <span class="col s12 user-name">Welcome, {{ userData.name.split(' ').slice(0, -1)[0] }}</span>
     </div>
     
