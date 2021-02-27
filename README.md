@@ -1,5 +1,6 @@
 # happy-hour
 
+## The Project is currently hosted in -> https://teste-oowlish-c9315.web.app/
 > A Vue.js project
 
 ## Build Setup
