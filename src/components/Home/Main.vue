@@ -1,5 +1,6 @@
 <template>
   <div class="card-content main-content center">
+    <!-- Content to be displayed when the user is still marking down hours -->
     <div class="row valign-wrapper" v-if="action != 'Complete'">
       <div class="col s6">
         <img src="@/assets/work-guys.svg" />
@@ -16,6 +17,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Content to be displayed when user completes the day -->
     <div class="row valign-wrapper" v-if="action == 'Complete'">
       <div class="col s6">
         <img src="@/assets/celebrate.svg" />
@@ -24,6 +27,8 @@
         <h2>Have a good day!</h2>
       </div>
     </div>
+
+    <!-- The marked down times in order -->
     <div class="row titles white-text blue lighten-1">
       <div class="col s3"><p>Start Working</p></div>
       <div class="col s3"><p>Lunch Start</p></div>
@@ -76,6 +81,8 @@
         </p>
       </div>
     </div>
+
+    <!-- The element Footer -->
     <div class="row" v-if="action == 'Complete' && !editing">
       <p>
         Something wrong?
@@ -91,6 +98,8 @@
         <span class="secondary-btn" @click="sendEditedTime">Send</span>
       </p>
     </div>
+
+    <!-- My Calendar router with calendar icon -->
     <div class="row">
       <router-link to="/calendar"
         ><div class="info-container">
@@ -117,15 +126,26 @@ export default {
   components: { VueTimepicker },
   data() {
     return {
+
+      // The first Action, will change in each iteration.
       action: "Start working",
+
+      // Editing mode.
       editing: false,
+
+      // A message error to be displayed.
       feedback: null,
+
+      // Current day_worked.
       day_worked: {
         day_beg: null,
         lunch_beg: null,
         lunch_end: null,
         day_end: null,
       },
+
+      // The editable objects returned by getEditableObject(timestamp)
+      // when entered in editing mode.
       editable_day_beg: null,
       editable_lunch_beg: null,
       editable_lunch_end: null,
@@ -133,9 +153,15 @@ export default {
     };
   },
   computed: {
+    /**
+     * @workedSeconds : The time between work beginning and ending.
+     */
     workedSeconds() {
       return Math.abs(this.day_worked.day_end - this.day_worked.day_beg) / 1000;
     },
+    /**
+     * @lunchSeconds : The time between lunch beginning and ending.
+     */
     lunchSeconds() {
       return (
         Math.abs(this.day_worked.lunch_end - this.day_worked.lunch_beg) / 1000
@@ -146,6 +172,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * @startEditing : Turn the worked hours labels into editable inputs.
+     */
     startEditing() {
       this.editable_day_beg = this.getEditableObject(this.day_worked.day_beg);
       this.editable_lunch_beg = this.getEditableObject(this.day_worked.lunch_beg);
@@ -153,8 +182,11 @@ export default {
       this.editable_day_end = this.getEditableObject(this.day_worked.day_end);
       this.editing = true;
     },
+    /**
+     * @checkTodayWork : It is going to check if are something in database concerning today, 
+     * and fill the fields.
+     */
     checkTodayWork(){
-      // It is going to check if are something in database concerning today, and fill the fields.
       let now = new Date()
       let date = (now.getMonth() + 1) + "-" + now.getDate() + "-" + now.getFullYear()
       
@@ -164,16 +196,9 @@ export default {
         }
       }
     },
-    convertTimestamp(timestamp) {
-      var h = new Date(timestamp).getHours();
-      var m = new Date(timestamp).getMinutes();
-      var s = new Date(timestamp).getSeconds();
-
-      h = h < 10 ? "0" + h : h;
-      m = m < 10 ? "0" + m : m;
-      var output = h + ":" + m + ":",
-        s;
-    },
+    /**
+     * @getEditableObject : Gets an editable object to work with inputs.
+     */
     getEditableObject(timestamp) {
       var h = new Date(timestamp).getHours();
       var m = new Date(timestamp).getMinutes();
@@ -184,6 +209,9 @@ export default {
         ss: s.toString(),
       };
     },
+    /**
+     * @addTime : Adds the time for each property in day_worked.
+     */
     addTime(hours) {
       if (!this.day_worked.day_beg) {
         this.day_worked.day_beg = hours;
@@ -206,6 +234,9 @@ export default {
         this.action = "Complete"
       }
     },
+    /**
+     * @sendTime : Send the current date to firestore.
+     */
     sendTime() {
       let data = this.day_worked
       
@@ -216,6 +247,9 @@ export default {
         .dispatch("day_worked/sendTime", data)
         .catch((err) => (this.feedback = err));
     },
+    /**
+     * @getTimestamp : Gets current Timestamp
+     */
     getTimestamp(time) {
       let now = new Date();
       return new Date(
@@ -227,9 +261,12 @@ export default {
         time.ss
       ).getTime();
     },
+
+    /**
+     * @sendEditedTime : Send the time was edited by user to firestore.
+     */
     sendEditedTime() {
       var incorrect_data = false;
-      var day_beg, day_end, lunch_beg, lunch_end;
 
       for (var prop in this.editable_day_beg) {
         if (prop == "") {
@@ -276,6 +313,9 @@ export default {
     },
   },
   watch:{
+    /**
+     * @day_worked : Dynamically changes the action. 
+     */
     day_worked(){
       if(this.day_worked.day_end){
         this.action = "Complete"
@@ -294,8 +334,6 @@ export default {
           this.action = "Finish Work"
         }
       }
-    },
-    days_worked(){
       this.checkTodayWork()
     }
   },

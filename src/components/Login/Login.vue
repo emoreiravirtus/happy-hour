@@ -1,8 +1,10 @@
 <template>
   <div class="login container">
     <div class="row">
+      <!-- Element on the Left -->
       <div class="col s12 m6">
         <form @submit.prevent="Login">
+          <!-- Header on the Left -->
           <div class="row">
             <div class="col s2">
               <img
@@ -14,6 +16,7 @@
               <h2 class="center">Welcome to Happy Hour</h2>
             </div>
           </div>
+          <!-- Fields -->
           <div class="field">
             <label for="email">Email:</label>
             <input type="email" name="email" v-model="email" />
@@ -34,6 +37,7 @@
           </div>
         </form>
       </div>
+      <!-- Element on the Right -->
       <div class="col s12 m6 mb-2 info-container">
         <img src="@/assets/login-girl.svg" alt="Kiwi standing on oval" />
         <div class="text-box blue blue-text upper-text">
@@ -83,10 +87,18 @@ export default {
     return {
       email: null,
       password: null,
+
+      /**
+       * @feedback : The little error message that may appear.
+       */
       feedback: null,
     };
   },
   methods: {
+    /**
+     * @Login : evaluates the fields and if they are all set correctly, 
+     * sends a login request to firebase.
+     */
     async Login() {
       if (!this.email || !this.password) {
         this.feedback = "Values are missing";

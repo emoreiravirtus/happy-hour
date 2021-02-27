@@ -1,6 +1,7 @@
 <template>
   <div class="card user-info">
     <div class="card-content">
+      <!-- User data -->
       <p class="upper-text" v-if="user">
         Full Name: <span class="blue-text truncate">{{ user.name }}</span>
       </p>
@@ -27,11 +28,18 @@
 <script>
 export default {
   name: "User-Info",
+  /**
+   * @user : As a prop to display his data.
+   */
   props: ["user"],
   computed:{
     days_worked(){
       return this.$store.getters["day_worked/days_worked"]
     },
+
+    /**
+     * @worked_hours_month : Returns the amount of hours worked.
+     */
     worked_hours_month(){
 
       let totalSeconds = 0
@@ -49,6 +57,10 @@ export default {
     }
   },
   methods:{
+
+    /**
+     * @secondsToHms : Takes a timestamp and returns a formatted date.
+     */
     secondsToHms(seconds) {
       seconds = Number(seconds);
       var h = Math.floor(seconds / 3600);

@@ -1,11 +1,13 @@
 <template>
   <div class="home container">
     <div class="row">
+      <!-- Main element -->
       <div class="col s12 m8 card margin-bottom-5">
         <div class="row">
           <main-content :timestamp="timestamp"/>
         </div>
       </div>
+      <!-- Notifications and User-info -->
       <div class="col s12 m4">
         <div class="row">
           <div class="col s12" v-if="user">
@@ -36,6 +38,9 @@ export default {
   },
   data() {
     return {
+      /**
+       * @timestamp : Stores the current time.
+       */
       timestamp: null,
     };
   },
@@ -45,9 +50,13 @@ export default {
     }
   },
   created() {
+    // Starts a counter to update the current time live.
     setInterval(this.getTimestamp, 1000);
   },
   methods: {
+    /**
+     * @getTimestamp : returns the current time.
+     */
     getTimestamp: function () {
       const today = new Date();
       this.timestamp = today.getTime();

@@ -1,18 +1,33 @@
 import firebase from "firebase"
 
 const state = {
+  /**
+   * @days_worked : all the days the user has worked hours.
+   */
   days_worked: [],
+  /**
+   * @unsubscriber : aux state to stop listening to firebase firestore data.
+   */
   unsubscriber: null
 }
 
 const mutations = {
 
+  /**
+   * @setUnsubscriber : setter for state.unsubscriber
+   */
   setUnsubscriber: (state, unsub) => state.unsubscriber = unsub,
 
+  /**
+   * @addDay : add day to state.days_worked
+   */
   addDay: (state, day) => {
     state.days_worked.push(day)
   },
 
+  /**
+   * @updateDay : updates specific day from state.days_worked
+   */
   updateDay: (state, day) => {
     state.days_worked = state.days_worked.map(element => {
       if(element.date == day.date){
@@ -23,6 +38,10 @@ const mutations = {
       }
     })
   },
+
+  /**
+   * @deleteDay : deletes specific day from state.days_worked
+   */
   deleteDay: (state, day) => {
     state.days_worked = state.days_worked.filter(element => {
       if(element.date != day.date){
@@ -30,6 +49,10 @@ const mutations = {
       }
     })
   },
+
+  /**
+   * @clear : unset all saved data in store
+   */
   clear: state => {
     state.days_worked = []
     state.unsubscriber = null
@@ -38,10 +61,20 @@ const mutations = {
 }
 
 const getters = {
+  /**
+   * 
+   * @days_worked : days_worked getter 
+   */
   days_worked: state => state.days_worked,
 }
 
 const actions = {
+
+  /**
+   * 
+   * @startListen : Starts listen to days_worked changes,
+   *  if something was added, modified or removed.
+   */
   startListen({
     commit,
     rootState
@@ -77,6 +110,11 @@ const actions = {
 
     })
   },
+
+  /**
+   * 
+   * @sendTime : Send a formatted date to be stored in user/days_worked/day_worked
+   */
   async sendTime({
     rootState
   }, day_worked) {
@@ -100,6 +138,11 @@ const actions = {
       })
 
   },
+
+  /**
+   * 
+   * @stopListen : Clears the listener .
+   */
   stopListen({commit}){
     if (state.unsubscriber){
       state.unsubscriber()

@@ -1,6 +1,7 @@
 <template>
   <div class="calendar container">
     <div class="row">
+      <!-- Calendar on the left -->
       <div class="col s12 m6 card">
         <div class="row card-content" v-if="enableCalendar">
           <FunctionalCalendar
@@ -10,6 +11,7 @@
           ></FunctionalCalendar>
         </div>
       </div>
+      <!-- Details to be displayed on the right -->
       <div class="col s12 m6 card">
         <div class="row card-content center">
           <h4 v-if="marked_days_worked.length == 0">You don't have worked days yet</h4>
@@ -34,7 +36,13 @@ export default {
   },
   data() {
     return {
+      /**
+       * @dateFormat : Format to display the calendar.
+       */
       dateFormat: "mm/dd/yyyy",
+      /**
+       * @selectedDate : the highlighted date on calendar.
+       */
       selectedDate: null,
       enableCalendar: false
     }
@@ -46,6 +54,9 @@ export default {
     days_worked(){
       return this.$store.getters["day_worked/days_worked"]
     },
+    /**
+     * @marked_days_worked : Return a formatted days_worked.
+     */
     marked_days_worked(){
       let markers = this.days_worked.map(day => {
         return day.date.replaceAll("-", "/")
@@ -64,6 +75,9 @@ export default {
     }, 1000)
   },
   methods:{
+    /**
+     * @changeDay : Changes the selected date.
+     */
     changeDay(object){
       object.date = object.date.replaceAll("/", "-")
       this.days_worked.filter(day => {

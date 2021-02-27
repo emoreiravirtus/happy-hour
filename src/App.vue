@@ -1,6 +1,9 @@
 <template>
+  <!-- App Wrapper -->
   <div id="app">
+    <!-- Navbar -->
     <navbar v-if="user"></navbar>
+    <!-- Router-view -->
     <router-view/>
   </div>
 </template>

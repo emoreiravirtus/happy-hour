@@ -1,5 +1,6 @@
 <template>
   <div class="card notifications">
+    <!-- Notifications -->
     <div class="card-content">
       Notifications (
       <span class="blue-text"> {{ notifications.length }} </span>)

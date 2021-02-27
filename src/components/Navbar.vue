@@ -2,6 +2,7 @@
   <div class="navbar">
     <nav>
       <div class="nav-wrapper blue">
+        <!-- Left Nav - Logo -->
         <router-link to="/">
           <a href="" class="brand-logo hide-on-med-and-down">
             <div class="row">
@@ -14,6 +15,7 @@
             </div>
           </a>
         </router-link>
+        <!-- Right Nav - Welcome user, pages and logout -->
         <ul class="right">
           <li class="user-name" v-if="userData">
               Welcome, {{ userData.name.split(' ').slice(0, -1)[0] }}
@@ -42,22 +44,13 @@
 <script>
 
 export default {
+  
   name: "Navbar",
-  data() {
-    return {
-    };
-  },
+
   async mounted(){
 
         await this.$store.dispatch("day_worked/startListen")
 
-        document.addEventListener('DOMContentLoaded', function() {
-        var elems = document.querySelectorAll('.dropdown-trigger');
-        var instances = M.Dropdown.init(elems, {
-            alignment: 'left',
-            coverTrigger: false
-        });
-        });
   },
   computed: {
     user(){
