@@ -1,5 +1,6 @@
 <template>
   <table class="selected-date-table responsive-table">
+    <!-- Worked day details -->
     <tbody>
       <tr>
         <td>Work beginning</td>
@@ -40,8 +41,14 @@
 <script>
 export default {
   name: "SelectedDateTable",
+  /**
+   * @selectedDate : The current selected date to display 
+   */
   props: ["selectedDate"],
   methods: {
+    /**
+     * @secondsToHms : Takes a timestamp and returns a formatted date.
+     */
     secondsToHms(seconds) {
       seconds = Number(seconds);
       var h = Math.floor(seconds / 3600);

@@ -4,7 +4,6 @@ import Home from '@/components/Home/Home'
 import Login from '@/components/Login/Login'
 import Register from '@/components/Login/Register'
 import Calendar from '@/components/Calendar/Calendar'
-import { store } from '@/store'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -40,6 +39,8 @@ const router = new Router({
   ]
 })
 
+// Router guard, if the user is not authenticated,
+// it will routes to Login page.
 router.beforeEach((to, from, next) => {
   
   if(to.matched.some(rec => rec.meta.requiresAuth)){

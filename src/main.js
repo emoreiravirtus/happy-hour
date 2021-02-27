@@ -3,28 +3,26 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import firebase from "firebase";
-require("firebase/firestore");
 import { store } from './store'
-Vue.use(require('vue-moment'));
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-Vue.use(Loading);
 
+// Utils
 import FunctionalCalendar from 'vue-functional-calendar';
+import VueTimepicker from 'vue2-timepicker'
+import 'vue2-timepicker/dist/VueTimepicker.css'
+Vue.use(Loading);
+Vue.use(require('vue-moment'));
+Vue.use(VueTimepicker)
 Vue.use(FunctionalCalendar, {
     dayNames: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 });
 
-// Main JS (in UMD format)
-import VueTimepicker from 'vue2-timepicker'
-// CSS
-import 'vue2-timepicker/dist/VueTimepicker.css'
-Vue.use(VueTimepicker)
-
 Vue.config.productionTip = false;
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+//Firebase
+import firebase from "firebase";
+require("firebase/firestore");
 const firebaseConfig = {
   apiKey: "AIzaSyDbJ0rMHCJseAQwvrgnYfWjKgcHGZpNgoE",
   authDomain: "teste-oowlish-c9315.firebaseapp.com",
@@ -34,11 +32,11 @@ const firebaseConfig = {
   messagingSenderId: "490222816157",
   appId: "1:490222816157:web:5835725e13a291dcab7d74"
 };
-// Initialize Firebase
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 let app = '';
 
+//Initialize our app
 firebaseApp.auth().onAuthStateChanged(() =>{
   if(!app){
     app = new Vue({

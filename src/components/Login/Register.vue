@@ -1,8 +1,10 @@
 <template>
   <div class="register container">
     <div class="row">
+       <!-- Element on the left -->
       <div class="col s12 m6">
         <form @submit.prevent="Register">
+          <!-- Header on the Left -->
           <div class="row">
             <div class="col s12">
               <h2 class="center">Start using our app</h2>
@@ -15,6 +17,7 @@
               >
             </div>
           </div>
+          <!-- Fields -->
           <div class="field">
             <label for="name">Name:</label>
             <input type="text" name="name" v-model="name" />
@@ -39,6 +42,7 @@
           </div>
         </form>
       </div>
+      <!-- Element on the right -->
       <div class="col s12 m6 info-container">
         <img src="@/assets/register-couple.svg" alt="Kiwi standing on oval" />
         <div class="text-box blue blue-text upper-text">
@@ -59,10 +63,18 @@ export default {
       email: null,
       company: null,
       password: null,
+      
+      /**
+       * @feedback : The little error message that may appear.
+       */
       feedback: null,
     };
   },
   methods: {
+    /**
+     * @Register : evaluates the fields and if they are all set correctly, 
+     * sends a register request to firebase.
+     */
     async Register() {
       if (!this.email || !this.password || !this.company || !this.name) {
         this.feedback = "Please fill all fields";
