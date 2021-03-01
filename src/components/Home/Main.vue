@@ -190,11 +190,14 @@ export default {
       let now = new Date()
       let date = (now.getMonth() + 1) + "-" + now.getDate() + "-" + now.getFullYear()
       
-      for(let day in this.days_worked){
-        if(this.days_worked[day].date == date){
-          this.day_worked = this.days_worked[day]
+      setTimeout(() => {
+        for(let day in this.days_worked){
+          if(this.days_worked[day].date == date){
+            this.day_worked = this.days_worked[day]
+          }
         }
-      }
+      }, 1000);
+      
     },
     /**
      * @getEditableObject : Gets an editable object to work with inputs.
